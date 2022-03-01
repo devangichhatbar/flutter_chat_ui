@@ -19,7 +19,8 @@ dependencies:
   flutter_link_previewer: ^2.6.3
   intl: ^0.17.0
   meta: ^1.7.0
-  photo_view: ^0.13.0
+  photo_view:
+    git: https://github.com/bluefireteam/photo_view.git
   visibility_detector: ^0.2.2
 
 dev_dependencies:
