@@ -165,7 +165,7 @@ class Chat extends StatefulWidget {
   final void Function()? onBackgroundTap;
 
   /// returns message which populating in screen
-  final Function(Object, int? index)? messageRendering;
+  final Function(types.Message)? messageRendering;
 
   /// See [ChatList.onEndReached]
   final Future<void> Function()? onEndReached;
@@ -369,6 +369,10 @@ class _ChatState extends State<Chat> {
               ? min(constraints.maxWidth * 0.72, 440).floor()
               : min(constraints.maxWidth * 0.78, 440).floor();
 
+      if(widget.messageRendering != null){
+        widget.messageRendering!(message);
+      }
+
       return Message(
         key: ValueKey(message.id),
         bubbleBuilder: widget.bubbleBuilder,
@@ -464,7 +468,6 @@ class _ChatState extends State<Chat> {
                                   isLastPage: widget.isLastPage,
                                   itemBuilder: (item, index) =>
                                       _messageBuilder(item, constraints),
-                                  messageRendering: widget.messageRendering,
                                   items: _chatMessages,
                                   onEndReached: widget.onEndReached,
                                   onEndReachedThreshold:

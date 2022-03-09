@@ -14,7 +14,6 @@ class ChatList extends StatefulWidget {
     this.isLastPage,
     required this.itemBuilder,
     required this.items,
-    this.messageRendering,
     this.onEndReached,
     this.onEndReachedThreshold,
     this.scrollPhysics,
@@ -27,9 +26,6 @@ class ChatList extends StatefulWidget {
 
   /// Items to build
   final List<Object> items;
-
-  /// returns message which populating in screen
-  final Function(Object, int? index)? messageRendering;
 
   /// Item builder
   final Widget Function(Object, int? index) itemBuilder;
@@ -131,10 +127,6 @@ class _ChatListState extends State<ChatList>
   Widget _newMessageBuilder(int index, Animation<double> animation) {
     try {
       final item = _oldData[index];
-
-      if(widget.messageRendering != null){
-        widget.messageRendering!(item, index);
-      }
 
       return SizeTransition(
         axisAlignment: -1,
