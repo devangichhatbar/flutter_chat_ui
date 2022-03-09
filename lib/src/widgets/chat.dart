@@ -48,6 +48,7 @@ class Chat extends StatefulWidget {
     this.onAttachmentPressed,
     this.onAvatarTap,
     this.onBackgroundTap,
+    this.messageRendering,
     this.onEndReached,
     this.onEndReachedThreshold,
     this.onMessageDoubleTap,
@@ -162,6 +163,9 @@ class Chat extends StatefulWidget {
 
   /// Called when user taps on background
   final void Function()? onBackgroundTap;
+
+  /// returns message which populating in screen
+  final Function(Object, int? index)? messageRendering;
 
   /// See [ChatList.onEndReached]
   final Future<void> Function()? onEndReached;
@@ -460,6 +464,7 @@ class _ChatState extends State<Chat> {
                                   isLastPage: widget.isLastPage,
                                   itemBuilder: (item, index) =>
                                       _messageBuilder(item, constraints),
+                                  messageRendering: widget.messageRendering,
                                   items: _chatMessages,
                                   onEndReached: widget.onEndReached,
                                   onEndReachedThreshold:
