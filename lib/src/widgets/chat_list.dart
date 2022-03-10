@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:diffutil_dart/diffutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
