@@ -14,6 +14,9 @@ void main() {
           home: Material(
             child: Chat(
               messages: const [],
+              messageStatus: (types.Message message){
+                return const Stream.empty();
+              },
               onSendPressed: (types.PartialText message) {},
               sendButtonVisibilityMode: SendButtonVisibilityMode.always,
               user:
@@ -38,6 +41,9 @@ void main() {
           home: Material(
             child: Chat(
               messages: const [],
+              messageStatus: (types.Message message){
+                return const Stream.empty();
+              },
               onSendPressed: (types.PartialText message) {},
               user:
                   const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
@@ -61,6 +67,9 @@ void main() {
           home: Material(
             child: Chat(
               messages: const [],
+              messageStatus: (types.Message message){
+                return const Stream.empty();
+              },
               onSendPressed: (types.PartialText message) {},
               user:
                   const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
@@ -90,6 +99,9 @@ void main() {
           home: Material(
             child: Chat(
               messages: const [],
+              messageStatus: (types.Message message){
+                return const Stream.empty();
+              },
               onSendPressed: (types.PartialText message) => isCalled = true,
               user:
                   const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
@@ -129,6 +141,9 @@ void main() {
           home: Material(
             child: Chat(
               messages: const [],
+              messageStatus: (types.Message message){
+                return const Stream.empty();
+              },
               onAttachmentPressed: () => isCalled = true,
               onSendPressed: (types.PartialText message) => {},
               user:

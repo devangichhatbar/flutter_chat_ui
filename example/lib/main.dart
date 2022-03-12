@@ -189,6 +189,7 @@ class _ChatPageState extends State<ChatPage> {
         bottom: false,
         child: Chat(
           messages: _messages,
+          messageStatus: allMessageStatus,
           onAttachmentPressed: _handleAtachmentPressed,
           onMessageTap: _handleMessageTap,
           onPreviewDataFetched: _handlePreviewDataFetched,
@@ -197,5 +198,9 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
     );
+  }
+
+  Stream<List<types.Status>> allMessageStatus(types.Message message){
+    return const Stream.empty();
   }
 }

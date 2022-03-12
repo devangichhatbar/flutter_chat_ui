@@ -20,6 +20,9 @@ void main() {
                 text: 'text',
               )
             ],
+            messageStatus: (types.Message message){
+              return const Stream.empty();
+            },
             onSendPressed: (types.PartialText message) => {},
             user: const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
           ),
@@ -52,6 +55,9 @@ void main() {
                 text: 'https://flutter.dev/',
               )
             ],
+            messageStatus: (types.Message message){
+              return const Stream.empty();
+            },
             onPreviewDataFetched:
                 (types.TextMessage message, types.PreviewData previewData) =>
                     {},
@@ -123,6 +129,9 @@ void main() {
                 text: 'https://flutter.dev/',
               )
             ],
+            messageStatus: (types.Message message){
+              return const Stream.empty();
+            },
             onSendPressed: (types.PartialText message) => {},
             onPreviewDataFetched:
                 (types.TextMessage message, types.PreviewData previewData) =>

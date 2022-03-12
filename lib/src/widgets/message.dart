@@ -24,6 +24,7 @@ class Message extends StatelessWidget {
     required this.hideBackgroundOnEmojiMessages,
     this.imageMessageBuilder,
     required this.message,
+    required this.messageStatus,
     required this.messageWidth,
     this.onAvatarTap,
     this.onMessageDoubleTap,
@@ -75,6 +76,8 @@ class Message extends StatelessWidget {
 
   /// Any message type
   final types.Message message;
+
+  final Stream<List<types.Status>> Function(types.Message) messageStatus;
 
   /// Maximum message width
   final int messageWidth;
@@ -233,10 +236,43 @@ class Message extends StatelessWidget {
     }
   }
 
-  Widget _statusBuilder(BuildContext context) {
-    switch (message.status) {
-      case types.Status.delivered:
-      case types.Status.sent:
+  types.StatusType? calculateStatus(snapshot){
+    List<types.Status> statusList = snapshot.data!;
+    int count = 100;
+    for (var status in statusList) {
+      types.StatusType? type = status.status;
+      if(count > 0 && type == types.StatusType.error){
+        count = 1;
+      }else if(count > 1 && type == types.StatusType.sending){
+        count = 2;
+      }else if(count > 2 && type == types.StatusType.sent){
+        count = 3;
+      }else if(count > 3 && type == types.StatusType.delivered){
+        count = 4;
+      }else if(count > 4 && type == types.StatusType.seen){
+        count = 5;
+      }
+    }
+
+    if(count == 1){
+      return types.StatusType.error;
+    }else if(count == 2){
+      return types.StatusType.sending;
+    }else if(count == 3){
+      return types.StatusType.sent;
+    }else if(count == 3){
+      return types.StatusType.delivered;
+    }else if(count == 4){
+      return types.StatusType.seen;
+    }
+
+    return null;
+  }
+
+  Widget _statusBuilder(BuildContext context, types.StatusType? latestStatus) {
+    switch (latestStatus) {
+      case types.StatusType.delivered:
+      case types.StatusType.sent:
         return InheritedChatTheme.of(context).theme.deliveredIcon != null
             ? InheritedChatTheme.of(context).theme.deliveredIcon!
             : Image.asset(
@@ -244,7 +280,7 @@ class Message extends StatelessWidget {
                 color: InheritedChatTheme.of(context).theme.primaryColor,
                 package: 'flutter_chat_ui',
               );
-      case types.Status.error:
+      case types.StatusType.error:
         return InheritedChatTheme.of(context).theme.errorIcon != null
             ? InheritedChatTheme.of(context).theme.errorIcon!
             : Image.asset(
@@ -252,7 +288,7 @@ class Message extends StatelessWidget {
                 color: InheritedChatTheme.of(context).theme.errorColor,
                 package: 'flutter_chat_ui',
               );
-      case types.Status.seen:
+      case types.StatusType.seen:
         return InheritedChatTheme.of(context).theme.seenIcon != null
             ? InheritedChatTheme.of(context).theme.seenIcon!
             : Image.asset(
@@ -260,7 +296,7 @@ class Message extends StatelessWidget {
                 color: InheritedChatTheme.of(context).theme.primaryColor,
                 package: 'flutter_chat_ui',
               );
-      case types.Status.sending:
+      case types.StatusType.sending:
         return InheritedChatTheme.of(context).theme.sendingIcon != null
             ? InheritedChatTheme.of(context).theme.sendingIcon!
             : Center(
@@ -359,7 +395,18 @@ class Message extends StatelessWidget {
                       onLongPress: () =>
                           onMessageStatusLongPress?.call(context, message),
                       onTap: () => onMessageStatusTap?.call(context, message),
-                      child: _statusBuilder(context),
+                      // child: _statusBuilder(context),
+                      child: StreamBuilder<List<types.Status>>(
+                        initialData: const [],
+                        stream: messageStatus(message),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const SizedBox();
+                          }
+
+                          return _statusBuilder(context, calculateStatus(snapshot));
+                        },
+                      ),
                     )
                   : null,
             ),
