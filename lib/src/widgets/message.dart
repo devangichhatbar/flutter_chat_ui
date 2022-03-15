@@ -25,6 +25,7 @@ class Message extends StatelessWidget {
     this.imageMessageBuilder,
     required this.message,
     required this.messageStatus,
+    this.messageRendering,
     required this.messageWidth,
     this.onAvatarTap,
     this.onMessageDoubleTap,
@@ -78,6 +79,9 @@ class Message extends StatelessWidget {
   final types.Message message;
 
   final Stream<List<types.Status>> Function(types.Message) messageStatus;
+
+  /// returns message which populating in screen
+  final Function(types.Message, types.StatusType?)? messageRendering;
 
   /// Maximum message width
   final int messageWidth;
@@ -387,11 +391,10 @@ class Message extends StatelessWidget {
               ],
             ),
           ),
-          if (_currentUserIsAuthor)
+          // if (_currentUserIsAuthor)
             Padding(
-              padding: InheritedChatTheme.of(context).theme.statusIconPadding,
-              child: showStatus
-                  ? GestureDetector(
+              padding: _currentUserIsAuthor ? InheritedChatTheme.of(context).theme.statusIconPadding : const EdgeInsets.all(0),
+              child: GestureDetector(
                       onLongPress: () =>
                           onMessageStatusLongPress?.call(context, message),
                       onTap: () => onMessageStatusTap?.call(context, message),
@@ -403,12 +406,20 @@ class Message extends StatelessWidget {
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
                             return const SizedBox();
                           }
+                          types.StatusType? latestStatus = calculateStatus(snapshot);
 
-                          return _statusBuilder(context, calculateStatus(snapshot));
+                          if(messageRendering != null){
+                            messageRendering!(message, latestStatus);
+                          }
+
+                          if (!_currentUserIsAuthor || !showStatus) {
+                            return const SizedBox();
+                          }
+
+                          return _statusBuilder(context, latestStatus);
                         },
                       ),
-                    )
-                  : null,
+                    ),
             ),
         ],
       ),
