@@ -391,11 +391,10 @@ class Message extends StatelessWidget {
               ],
             ),
           ),
-          if (_currentUserIsAuthor)
+          // if (_currentUserIsAuthor)
             Padding(
-              padding: InheritedChatTheme.of(context).theme.statusIconPadding,
-              child: showStatus
-                  ? GestureDetector(
+              padding: _currentUserIsAuthor ? InheritedChatTheme.of(context).theme.statusIconPadding : const EdgeInsets.all(0),
+              child: GestureDetector(
                       onLongPress: () =>
                           onMessageStatusLongPress?.call(context, message),
                       onTap: () => onMessageStatusTap?.call(context, message),
@@ -407,18 +406,20 @@ class Message extends StatelessWidget {
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
                             return const SizedBox();
                           }
-
                           types.StatusType? latestStatus = calculateStatus(snapshot);
 
                           if(messageRendering != null){
                             messageRendering!(message, latestStatus);
                           }
 
+                          if (!_currentUserIsAuthor || !showStatus) {
+                            return const SizedBox();
+                          }
+
                           return _statusBuilder(context, latestStatus);
                         },
                       ),
-                    )
-                  : null,
+                    ),
             ),
         ],
       ),
