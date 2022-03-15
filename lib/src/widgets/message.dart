@@ -25,6 +25,7 @@ class Message extends StatelessWidget {
     this.imageMessageBuilder,
     required this.message,
     required this.messageStatus,
+    this.messageRendering,
     required this.messageWidth,
     this.onAvatarTap,
     this.onMessageDoubleTap,
@@ -78,6 +79,9 @@ class Message extends StatelessWidget {
   final types.Message message;
 
   final Stream<List<types.Status>> Function(types.Message) messageStatus;
+
+  /// returns message which populating in screen
+  final Function(types.Message, types.StatusType?)? messageRendering;
 
   /// Maximum message width
   final int messageWidth;
@@ -404,7 +408,13 @@ class Message extends StatelessWidget {
                             return const SizedBox();
                           }
 
-                          return _statusBuilder(context, calculateStatus(snapshot));
+                          types.StatusType? latestStatus = calculateStatus(snapshot);
+
+                          if(messageRendering != null){
+                            messageRendering!(message, latestStatus);
+                          }
+
+                          return _statusBuilder(context, latestStatus);
                         },
                       ),
                     )
