@@ -351,15 +351,20 @@ class _ChatState extends State<Chat> {
 
   Widget _messageBuilder(Object object, BoxConstraints constraints) {
     if (object is DateHeader) {
-      return Container(
-        decoration: const BoxDecoration(
-          color: Colors.green
-        ),
+      return Align(
         alignment: Alignment.center,
-        margin: widget.theme.dateDividerMargin,
-        child: Text(
-          object.text,
-          style: widget.theme.dateDividerTextStyle,
+        child: Container(
+          padding:  const EdgeInsets.fromLTRB(8, 2, 8, 4),
+          decoration: BoxDecoration(
+            color: const Color(0xFF898989).withOpacity(0.2),
+            // color: const Color(0xff5B6DE7).withOpacity(0.2),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          margin: widget.theme.dateDividerMargin,
+          child: Text(
+            object.text,
+            style: widget.theme.dateDividerTextStyle,
+          ),
         ),
       );
     } else if (object is MessageSpacer) {
