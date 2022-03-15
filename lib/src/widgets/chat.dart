@@ -126,8 +126,6 @@ class Chat extends StatefulWidget {
   /// in this case.
   final Widget? emptyState;
 
-  //test commit
-
   /// See [Message.fileMessageBuilder]
   final Widget Function(types.FileMessage, {required int messageWidth})?
       fileMessageBuilder;
