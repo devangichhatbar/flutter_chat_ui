@@ -385,6 +385,7 @@ class _ChatState extends State<Chat> {
         imageMessageBuilder: widget.imageMessageBuilder,
         message: message,
         messageStatus: widget.messageStatus,
+        messageRendering: widget.messageRendering,
         messageWidth: _messageWidth,
         onAvatarTap: widget.onAvatarTap,
         onMessageDoubleTap: widget.onMessageDoubleTap,
