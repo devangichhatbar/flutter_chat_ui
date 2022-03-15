@@ -352,6 +352,9 @@ class _ChatState extends State<Chat> {
   Widget _messageBuilder(Object object, BoxConstraints constraints) {
     if (object is DateHeader) {
       return Container(
+        decoration: const BoxDecoration(
+          color: Colors.green
+        ),
         alignment: Alignment.center,
         margin: widget.theme.dateDividerMargin,
         child: Text(
