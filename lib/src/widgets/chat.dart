@@ -354,7 +354,7 @@ class _ChatState extends State<Chat> {
       return Align(
         alignment: Alignment.center,
         child: Container(
-          padding:  const EdgeInsets.fromLTRB(8, 2, 8, 4),
+          padding:  const EdgeInsets.fromLTRB(8, 4, 8, 4),
           decoration: BoxDecoration(
             color: const Color(0xFF898989).withOpacity(0.2),
             // color: const Color(0xff5B6DE7).withOpacity(0.2),
