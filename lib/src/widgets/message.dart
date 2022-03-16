@@ -216,7 +216,6 @@ class Message extends StatelessWidget {
                     ),
                   ),
         Positioned(
-          top: 4,
           bottom: 2,
           right: 4,
           left: 4,
