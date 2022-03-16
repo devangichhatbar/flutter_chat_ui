@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:intl/intl.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../flutter_chat_ui.dart';
 import '../models/emoji_enlargement_behavior.dart';
 import '../util.dart';
 import 'file_message.dart';
@@ -42,6 +44,9 @@ class Message extends StatelessWidget {
     required this.showUserAvatars,
     this.textMessageBuilder,
     required this.usePreviewData,
+    this.dateFormat,
+    this.dateLocale,
+    this.timeFormat,
   }) : super(key: key);
 
   /// Customize the default bubble using this function. `child` is a content
@@ -127,6 +132,10 @@ class Message extends StatelessWidget {
   /// Show user avatars for received messages. Useful for a group chat.
   final bool showUserAvatars;
 
+  final DateFormat? dateFormat;
+  final String? dateLocale;
+  final DateFormat? timeFormat;
+
   /// Build a text message inside predefined bubble.
   final Widget Function(
     types.TextMessage, {
@@ -197,7 +206,28 @@ class Message extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: borderRadius,
-                  child: _messageBuilder(),
+                  child: Column(
+                    children: [
+                      _messageBuilder(),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          padding:
+                              const EdgeInsets.only(right: 16, bottom: 4, top: 4),
+                          child:  Text(
+                            messageTime(
+                              DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
+                              dateLocale: dateLocale,
+                              timeFormat: timeFormat,
+                            ),
+                            style: InheritedChatTheme.of(context)
+                                .theme
+                                  .dateDividerTextStyle,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
   }
@@ -240,33 +270,33 @@ class Message extends StatelessWidget {
     }
   }
 
-  types.StatusType? calculateStatus(snapshot){
+  types.StatusType? calculateStatus(snapshot) {
     List<types.Status> statusList = snapshot.data!;
     int count = 100;
     for (var status in statusList) {
       types.StatusType? type = status.status;
-      if(count > 0 && type == types.StatusType.error){
+      if (count > 0 && type == types.StatusType.error) {
         count = 1;
-      }else if(count > 1 && type == types.StatusType.sending){
+      } else if (count > 1 && type == types.StatusType.sending) {
         count = 2;
-      }else if(count > 2 && type == types.StatusType.sent){
+      } else if (count > 2 && type == types.StatusType.sent) {
         count = 3;
-      }else if(count > 3 && type == types.StatusType.delivered){
+      } else if (count > 3 && type == types.StatusType.delivered) {
         count = 4;
-      }else if(count > 4 && type == types.StatusType.seen){
+      } else if (count > 4 && type == types.StatusType.seen) {
         count = 5;
       }
     }
 
-    if(count == 1){
+    if (count == 1) {
       return types.StatusType.error;
-    }else if(count == 2){
+    } else if (count == 2) {
       return types.StatusType.sending;
-    }else if(count == 3){
+    } else if (count == 3) {
       return types.StatusType.sent;
-    }else if(count == 3){
+    } else if (count == 3) {
       return types.StatusType.delivered;
-    }else if(count == 4){
+    } else if (count == 4) {
       return types.StatusType.seen;
     }
 
@@ -392,35 +422,37 @@ class Message extends StatelessWidget {
             ),
           ),
           // if (_currentUserIsAuthor)
-            Padding(
-              padding: _currentUserIsAuthor ? InheritedChatTheme.of(context).theme.statusIconPadding : const EdgeInsets.all(0),
-              child: GestureDetector(
-                      onLongPress: () =>
-                          onMessageStatusLongPress?.call(context, message),
-                      onTap: () => onMessageStatusTap?.call(context, message),
-                      // child: _statusBuilder(context),
-                      child: StreamBuilder<List<types.Status>>(
-                        initialData: const [],
-                        stream: messageStatus(message),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return const SizedBox();
-                          }
-                          types.StatusType? latestStatus = calculateStatus(snapshot);
+          Padding(
+            padding: _currentUserIsAuthor
+                ? InheritedChatTheme.of(context).theme.statusIconPadding
+                : const EdgeInsets.all(0),
+            child: GestureDetector(
+              onLongPress: () =>
+                  onMessageStatusLongPress?.call(context, message),
+              onTap: () => onMessageStatusTap?.call(context, message),
+              // child: _statusBuilder(context),
+              child: StreamBuilder<List<types.Status>>(
+                initialData: const [],
+                stream: messageStatus(message),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const SizedBox();
+                  }
+                  types.StatusType? latestStatus = calculateStatus(snapshot);
 
-                          if(messageRendering != null){
-                            messageRendering!(message, latestStatus);
-                          }
+                  if (messageRendering != null) {
+                    messageRendering!(message, latestStatus);
+                  }
 
-                          if (!_currentUserIsAuthor || !showStatus) {
-                            return const SizedBox();
-                          }
+                  if (!_currentUserIsAuthor || !showStatus) {
+                    return const SizedBox();
+                  }
 
-                          return _statusBuilder(context, latestStatus);
-                        },
-                      ),
-                    ),
+                  return _statusBuilder(context, latestStatus);
+                },
+              ),
             ),
+          ),
         ],
       ),
     );

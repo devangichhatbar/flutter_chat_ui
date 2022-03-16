@@ -66,6 +66,28 @@ String getVerboseDateTimeRepresentation(
   return '$formattedDate, $formattedTime';
 }
 
+String messageTime(DateTime dateTime, {
+  String? dateLocale,
+  DateFormat? timeFormat,
+}) {
+  final formattedTime = timeFormat != null
+      ? timeFormat.format(dateTime)
+      : DateFormat.jm(dateLocale).format(dateTime);
+  final localDateTime = dateTime.toLocal();
+  final now = DateTime.now();
+
+  if (localDateTime.day == now.day &&
+      localDateTime.month == now.month &&
+      localDateTime.year == now.year) {
+    return formattedTime;
+  }
+
+  return formattedTime;
+
+  // var d12 = DateFormat('hh:mm a').format(dateTime);
+  // return d12;
+}
+
 /// Returns whether the [message] consists of a single emoji or multiple emojis
 /// depending on the given [emojiEnlargementBehavior].
 bool isConsistsOfEmojis(
