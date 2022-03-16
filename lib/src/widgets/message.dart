@@ -191,7 +191,7 @@ class Message extends StatelessWidget {
     return Column(
         crossAxisAlignment: currentUserIsAuthor
             ? CrossAxisAlignment.end
-            : CrossAxisAlignment.end,
+            : CrossAxisAlignment.start,
       children: [
         bubbleBuilder != null
             ? bubbleBuilder!(
