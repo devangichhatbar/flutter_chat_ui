@@ -216,6 +216,7 @@ class Message extends StatelessWidget {
                       child: _messageBuilder(),
                     ),
                   ),
+        const SizedBox(height: 2,),
         Text(
           messageTime(
             DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
