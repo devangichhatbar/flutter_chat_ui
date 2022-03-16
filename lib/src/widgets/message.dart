@@ -215,6 +215,7 @@ class Message extends StatelessWidget {
                       child: _messageBuilder(),
                     ),
                   ),
+        const SizedBox(height: 2,),
         Positioned(
           bottom: 2,
           child: Text(
