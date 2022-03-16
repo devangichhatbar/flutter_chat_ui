@@ -218,7 +218,6 @@ class Message extends StatelessWidget {
         Positioned(
           bottom: 2,
           right: 4,
-          left: 4,
           child: Text(
             messageTime(
               DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
@@ -226,7 +225,7 @@ class Message extends StatelessWidget {
               timeFormat: timeFormat,
             ),
             textAlign: TextAlign.end,
-            style: InheritedChatTheme.of(context).theme.dateDividerTextStyle,
+            style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
           ),
         )
       ],
