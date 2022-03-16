@@ -357,7 +357,6 @@ class _ChatState extends State<Chat> {
           padding:  const EdgeInsets.fromLTRB(8, 4, 8, 4),
           decoration: BoxDecoration(
             color: const Color(0xFF898989).withOpacity(0.2),
-            // color: const Color(0xff5B6DE7).withOpacity(0.2),
             borderRadius: BorderRadius.circular(16.0),
           ),
           margin: widget.theme.dateDividerMargin,
@@ -417,6 +416,10 @@ class _ChatState extends State<Chat> {
         showUserAvatars: widget.showUserAvatars,
         textMessageBuilder: widget.textMessageBuilder,
         usePreviewData: widget.usePreviewData,
+        dateFormat: widget.dateFormat,
+        dateLocale: widget.dateLocale,
+        timeFormat: widget.timeFormat,
+
       );
     }
   }
