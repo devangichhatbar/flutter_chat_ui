@@ -53,7 +53,9 @@ abstract class ChatTheme {
     required this.backgroundColor,
     required this.dateDividerMargin,
     required this.dateDividerTextStyle,
+    required this.messageTimeTextStyle,
     required this.deliveredIcon,
+    required this.sentIcon,
     required this.documentIcon,
     required this.emptyChatPlaceholderTextStyle,
     required this.errorColor,
@@ -109,8 +111,14 @@ abstract class ChatTheme {
   /// Text style of the date dividers
   final TextStyle dateDividerTextStyle;
 
+  /// showing time below message on bubble
+  final TextStyle messageTimeTextStyle;
+
   /// Icon for message's `delivered` status. For the best look use size of 16.
   final Widget? deliveredIcon;
+
+  /// Icon for message's `sent` status. For the best look use size of 16.
+  final Widget? sentIcon;
 
   /// Icon inside file message
   final Widget? documentIcon;
@@ -268,7 +276,14 @@ class DefaultChatTheme extends ChatTheme {
       fontWeight: FontWeight.w800,
       height: 1.333,
     ),
+    TextStyle messageTimeTextStyle = const TextStyle(
+      color: neutral2,
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      height: 1.333,
+    ),
     Widget? deliveredIcon,
+    Widget? sentIcon,
     Widget? documentIcon,
     TextStyle emptyChatPlaceholderTextStyle = const TextStyle(
       color: neutral2,
@@ -380,7 +395,9 @@ class DefaultChatTheme extends ChatTheme {
           backgroundColor: backgroundColor,
           dateDividerMargin: dateDividerMargin,
           dateDividerTextStyle: dateDividerTextStyle,
+          messageTimeTextStyle: messageTimeTextStyle,
           deliveredIcon: deliveredIcon,
+          sentIcon: sentIcon,
           documentIcon: documentIcon,
           emptyChatPlaceholderTextStyle: emptyChatPlaceholderTextStyle,
           errorColor: errorColor,
@@ -444,6 +461,13 @@ class DarkChatTheme extends ChatTheme {
       color: neutral7,
       fontSize: 12,
       fontWeight: FontWeight.w800,
+      height: 1.333,
+    ),
+
+    TextStyle messageTimeTextStyle = const TextStyle(
+      color: neutral7,
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
       height: 1.333,
     ),
     Widget? deliveredIcon,
@@ -558,7 +582,9 @@ class DarkChatTheme extends ChatTheme {
           backgroundColor: backgroundColor,
           dateDividerMargin: dateDividerMargin,
           dateDividerTextStyle: dateDividerTextStyle,
+          messageTimeTextStyle: messageTimeTextStyle,
           deliveredIcon: deliveredIcon,
+          sentIcon: seenIcon,
           documentIcon: documentIcon,
           emptyChatPlaceholderTextStyle: emptyChatPlaceholderTextStyle,
           errorColor: errorColor,
