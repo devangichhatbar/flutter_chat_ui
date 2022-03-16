@@ -202,6 +202,7 @@ class Message extends StatelessWidget {
             : enlargeEmojis && hideBackgroundOnEmojiMessages
                 ? _messageBuilder()
                 : Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       borderRadius: borderRadius,
                       color: !currentUserIsAuthor ||
@@ -215,8 +216,10 @@ class Message extends StatelessWidget {
                     ),
                   ),
         Positioned(
+          top: 4,
           bottom: 2,
           right: 4,
+          left: 4,
           child: Text(
             messageTime(
               DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
@@ -308,10 +311,10 @@ class Message extends StatelessWidget {
         return InheritedChatTheme.of(context).theme.deliveredIcon != null
             ? InheritedChatTheme.of(context).theme.deliveredIcon!
             : Image.asset(
-          'assets/icon-delivered.png',
-          color: InheritedChatTheme.of(context).theme.primaryColor,
-          package: 'flutter_chat_ui',
-        );
+                'assets/icon-delivered.png',
+                color: InheritedChatTheme.of(context).theme.primaryColor,
+                package: 'flutter_chat_ui',
+              );
       case types.StatusType.sent:
         return InheritedChatTheme.of(context).theme.sentIcon != null
             ? InheritedChatTheme.of(context).theme.sentIcon!
