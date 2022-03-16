@@ -217,7 +217,6 @@ class Message extends StatelessWidget {
                   ),
         Positioned(
           bottom: 2,
-          right: 4,
           child: Text(
             messageTime(
               DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
