@@ -217,14 +217,21 @@ class Message extends StatelessWidget {
                     ),
                   ),
         const SizedBox(height: 2,),
-        Text(
-          messageTime(
-            DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
-            dateLocale: dateLocale,
-            timeFormat: timeFormat,
-          ),
-          textAlign: TextAlign.end,
-          style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              messageTime(
+                DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
+                dateLocale: dateLocale,
+                timeFormat: timeFormat,
+              ),
+              textAlign: TextAlign.end,
+              style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
+            ),
+            const SizedBox(width: 8,),
+          ],
         ),
         const SizedBox(height: 2,),
       ],
