@@ -97,6 +97,10 @@ abstract class ChatTheme {
     required this.userAvatarNameColors,
     required this.userAvatarTextStyle,
     required this.userNameTextStyle,
+    this.deliveredMessageIconColor,
+    this.seenMessageIconColor,
+    this.sentMessageIconColor,
+    this.sendingMessageIconColor,
   });
 
   /// Icon for select attachment button
@@ -171,6 +175,11 @@ abstract class ChatTheme {
   /// Primary color of the chat used as a background of sent messages
   /// and statuses
   final Color primaryColor;
+
+  final Color? deliveredMessageIconColor;
+  final Color? sentMessageIconColor;
+  final Color? seenMessageIconColor;
+  final Color? sendingMessageIconColor;
 
   /// Text style used for displaying emojis on text messages
   final TextStyle receivedEmojiMessageTextStyle;
@@ -390,6 +399,10 @@ class DefaultChatTheme extends ChatTheme {
       fontWeight: FontWeight.w800,
       height: 1.333,
     ),
+    deliveredMessageIconColor = const Color(0xFF898989),
+    seenMessageIconColor = const Color(0xFF898989),
+    sentMessageIconColor = const Color(0xFF898989),
+    sendingMessageIconColor = const Color(0xFF898989),
   }) : super(
           attachmentButtonIcon: attachmentButtonIcon,
           backgroundColor: backgroundColor,
@@ -415,6 +428,10 @@ class DefaultChatTheme extends ChatTheme {
           messageInsetsHorizontal: messageInsetsHorizontal,
           messageInsetsVertical: messageInsetsVertical,
           primaryColor: primaryColor,
+          deliveredMessageIconColor: deliveredMessageIconColor,
+          seenMessageIconColor: seenMessageIconColor,
+          sentMessageIconColor: sentMessageIconColor,
+          sendingMessageIconColor: sendingMessageIconColor,
           receivedEmojiMessageTextStyle: receivedEmojiMessageTextStyle,
           receivedMessageBodyLinkTextStyle: receivedMessageBodyLinkTextStyle,
           receivedMessageBodyTextStyle: receivedMessageBodyTextStyle,
@@ -463,7 +480,6 @@ class DarkChatTheme extends ChatTheme {
       fontWeight: FontWeight.w800,
       height: 1.333,
     ),
-
     TextStyle messageTimeTextStyle = const TextStyle(
       color: neutral7,
       fontSize: 10,
@@ -503,6 +519,10 @@ class DarkChatTheme extends ChatTheme {
     double messageInsetsHorizontal = 8,
     double messageInsetsVertical = 8,
     Color primaryColor = primary,
+    deliveredMessageIconColor = const Color(0xFF898989),
+    seenMessageIconColor = const Color(0xFF898989),
+    sentMessageIconColor = const Color(0xFF898989),
+    sendingMessageIconColor = const Color(0xFF898989),
     TextStyle receivedEmojiMessageTextStyle = const TextStyle(fontSize: 40),
     TextStyle? receivedMessageBodyLinkTextStyle,
     TextStyle receivedMessageBodyTextStyle = const TextStyle(
@@ -602,6 +622,10 @@ class DarkChatTheme extends ChatTheme {
           messageInsetsHorizontal: messageInsetsHorizontal,
           messageInsetsVertical: messageInsetsVertical,
           primaryColor: primaryColor,
+          deliveredMessageIconColor: deliveredMessageIconColor,
+          seenMessageIconColor: seenMessageIconColor,
+          sentMessageIconColor: sentMessageIconColor,
+          sendingMessageIconColor: sendingMessageIconColor,
           receivedEmojiMessageTextStyle: receivedEmojiMessageTextStyle,
           receivedMessageBodyLinkTextStyle: receivedMessageBodyLinkTextStyle,
           receivedMessageBodyTextStyle: receivedMessageBodyTextStyle,

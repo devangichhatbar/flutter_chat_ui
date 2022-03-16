@@ -316,7 +316,7 @@ class Message extends StatelessWidget {
             ? InheritedChatTheme.of(context).theme.deliveredIcon!
             : Image.asset(
                 'assets/icon-delivered.png',
-                color: InheritedChatTheme.of(context).theme.primaryColor,
+                color: InheritedChatTheme.of(context).theme.deliveredMessageIconColor,
                 package: 'flutter_chat_ui',
               );
       case types.StatusType.sent:
@@ -324,7 +324,7 @@ class Message extends StatelessWidget {
             ? InheritedChatTheme.of(context).theme.sentIcon!
             : Image.asset(
                 'assets/icon-delivered.png',
-                color: InheritedChatTheme.of(context).theme.primaryColor,
+                color: InheritedChatTheme.of(context).theme.sentMessageIconColor,
                 package: 'flutter_chat_ui',
               );
       case types.StatusType.error:
@@ -340,7 +340,7 @@ class Message extends StatelessWidget {
             ? InheritedChatTheme.of(context).theme.seenIcon!
             : Image.asset(
                 'assets/icon-seen.png',
-                color: InheritedChatTheme.of(context).theme.primaryColor,
+                color: InheritedChatTheme.of(context).theme.seenMessageIconColor,
                 package: 'flutter_chat_ui',
               );
       case types.StatusType.sending:
@@ -354,7 +354,7 @@ class Message extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     strokeWidth: 1.5,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      InheritedChatTheme.of(context).theme.primaryColor,
+                      InheritedChatTheme.of(context).theme.sendingMessageIconColor!,
                     ),
                   ),
                 ),
