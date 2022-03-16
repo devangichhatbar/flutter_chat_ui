@@ -195,6 +195,11 @@ class _ChatPageState extends State<ChatPage> {
           onPreviewDataFetched: _handlePreviewDataFetched,
           onSendPressed: _handleSendPressed,
           user: _user,
+          theme: const DefaultChatTheme(
+            messageBorderRadius: 8,
+            messageInsetsHorizontal: 4,
+            messageInsetsVertical: 2,
+          ),
         ),
       ),
     );

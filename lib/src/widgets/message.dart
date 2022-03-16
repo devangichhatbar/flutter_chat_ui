@@ -188,10 +188,10 @@ class Message extends StatelessWidget {
     bool currentUserIsAuthor,
     bool enlargeEmojis,
   ) {
-    return Stack(
-      // crossAxisAlignment: currentUserIsAuthor
-      //     ? CrossAxisAlignment.end
-      //     : CrossAxisAlignment.start,
+    return Column(
+        crossAxisAlignment: currentUserIsAuthor
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.end,
       children: [
         bubbleBuilder != null
             ? bubbleBuilder!(
@@ -202,7 +202,8 @@ class Message extends StatelessWidget {
             : enlargeEmojis && hideBackgroundOnEmojiMessages
                 ? _messageBuilder()
                 : Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       borderRadius: borderRadius,
                       color: !currentUserIsAuthor ||
@@ -215,19 +216,16 @@ class Message extends StatelessWidget {
                       child: _messageBuilder(),
                     ),
                   ),
-        const SizedBox(height: 2,),
-        Positioned(
-          bottom: 2,
-          child: Text(
-            messageTime(
-              DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
-              dateLocale: dateLocale,
-              timeFormat: timeFormat,
-            ),
-            textAlign: TextAlign.end,
-            style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
+        Text(
+          messageTime(
+            DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
+            dateLocale: dateLocale,
+            timeFormat: timeFormat,
           ),
-        )
+          textAlign: TextAlign.end,
+          style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
+        ),
+        const SizedBox(height: 2,),
       ],
     );
   }
