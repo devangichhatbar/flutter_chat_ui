@@ -45,7 +45,7 @@ class Chat extends StatefulWidget {
     this.isLastPage,
     this.l10n = const ChatL10nEn(),
     required this.messages,
-    required this.messageStatus,
+    // required this.messageStatus,
     this.onAttachmentPressed,
     this.onAvatarTap,
     this.onBackgroundTap,
@@ -155,7 +155,7 @@ class Chat extends StatefulWidget {
 
   /// List of [types.Message] to render in the chat widget
   final List<types.Message> messages;
-  final Stream<List<types.Status>> Function(types.Message) messageStatus;
+  // final Stream<List<types.Status>> Function(types.Message) messageStatus;
 
   /// See [Input.onAttachmentPressed]
   final void Function()? onAttachmentPressed;
@@ -391,7 +391,7 @@ class _ChatState extends State<Chat> {
         hideBackgroundOnEmojiMessages: widget.hideBackgroundOnEmojiMessages,
         imageMessageBuilder: widget.imageMessageBuilder,
         message: message,
-        messageStatus: widget.messageStatus,
+        // messageStatus: widget.messageStatus,
         messageRendering: widget.messageRendering,
         messageWidth: _messageWidth,
         onAvatarTap: widget.onAvatarTap,
