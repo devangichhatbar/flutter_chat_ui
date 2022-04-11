@@ -26,7 +26,7 @@ class Message extends StatelessWidget {
     required this.hideBackgroundOnEmojiMessages,
     this.imageMessageBuilder,
     required this.message,
-    required this.messageStatus,
+    // required this.messageStatus,
     this.messageRendering,
     required this.messageWidth,
     this.onAvatarTap,
@@ -216,28 +216,29 @@ class Message extends StatelessWidget {
                       child: _messageBuilder(),
                     ),
                   ),
-        const SizedBox(height: 2,),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              messageTime(
-                DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
-                dateLocale: dateLocale,
-                timeFormat: timeFormat,
-              ),
-              textAlign: TextAlign.end,
-              style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
-            ),
-            const SizedBox(width: 8,),
-          ],
-        ),
-        const SizedBox(height: 2,),
+        // const SizedBox(height: 2,),
+        // Row(
+        //   crossAxisAlignment: CrossAxisAlignment.end,
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        //     Text(
+        //       messageTime(
+        //         DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
+        //         dateLocale: dateLocale,
+        //         timeFormat: timeFormat,
+        //       ),
+        //       textAlign: TextAlign.end,
+        //       style: InheritedChatTheme.of(context).theme.messageTimeTextStyle,
+        //     ),
+        //     const SizedBox(width: 8,),
+        //   ],
+        // ),
+        const SizedBox(height: 4,),
       ],
     );
   }
+
 
   Widget _messageBuilder() {
     switch (message.type) {
@@ -310,8 +311,8 @@ class Message extends StatelessWidget {
     return null;
   }
 
-  Widget _statusBuilder(BuildContext context, types.StatusType? latestStatus) {
-    switch (latestStatus) {
+  Widget _statusBuilder(BuildContext context ) { //, types.StatusType? latestStatus
+    switch (message.status) {
       case types.StatusType.delivered:
         return InheritedChatTheme.of(context).theme.deliveredIcon != null
             ? InheritedChatTheme.of(context).theme.deliveredIcon!
@@ -444,27 +445,27 @@ class Message extends StatelessWidget {
               onLongPress: () =>
                   onMessageStatusLongPress?.call(context, message),
               onTap: () => onMessageStatusTap?.call(context, message),
-              // child: _statusBuilder(context),
-              child: StreamBuilder<List<types.Status>>(
-                initialData: const [],
-                stream: messageStatus(message),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const SizedBox();
-                  }
-                  types.StatusType? latestStatus = calculateStatus(snapshot);
-
-                  if (messageRendering != null) {
-                    messageRendering!(message, latestStatus);
-                  }
-
-                  if (!_currentUserIsAuthor || !showStatus) {
-                    return const SizedBox();
-                  }
-
-                  return _statusBuilder(context, latestStatus);
-                },
-              ),
+              child: _statusBuilder(context),
+              // child: StreamBuilder<List<types.Status>>(
+              //   initialData: const [],
+              //   stream: messageStatus(message),
+              //   builder: (context, snapshot) {
+              //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              //       return const SizedBox();
+              //     }
+              //     types.StatusType? latestStatus = calculateStatus(snapshot);
+              //
+              //     if (messageRendering != null) {
+              //       messageRendering!(message, latestStatus);
+              //     }
+              //
+              //     if (!_currentUserIsAuthor || !showStatus) {
+              //       return const SizedBox();
+              //     }
+              //
+              //     return _statusBuilder(context, latestStatus);
+              //   },
+              // ),
             ),
           ),
         ],
